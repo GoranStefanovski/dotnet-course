@@ -1,0 +1,159 @@
+// C# Basics Demo - Understanding C# Development
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+// ALL EXECUTABLE CODE MUST COME FIRST (before any class definitions)
+
+// Entry point of the application
+Console.WriteLine("=== C# Basics Demo ===");
+
+// 1. Variables and Data Types
+string name = "John";
+int age = 25;
+double height = 5.9;
+bool isStudent = true;
+DateTime today = DateTime.Now;
+
+Console.WriteLine($"Name: {name}, Age: {age}, Height: {height}ft, Student: {isStudent}");
+Console.WriteLine($"Today is: {today:yyyy-MM-dd}");
+
+// 2. Collections (Lists)
+List<string> hobbies = new List<string> { "Reading", "Gaming", "Coding" };
+Console.WriteLine($"\nHobbies: {string.Join(", ", hobbies)}");
+
+// 3. Using methods
+DateTime birthDate = new DateTime(1998, 5, 15);
+int calculatedAge = CalculateAge(birthDate);
+string personInfo = GetPersonInfo("Alice", calculatedAge);
+Console.WriteLine($"\n{personInfo}");
+
+// 4. Using the Person class
+Console.WriteLine("\n=== Using Classes ===");
+Person person1 = new Person("Emma", 28);
+person1.AddHobby("Photography");
+person1.AddHobby("Travel");
+person1.Introduce();
+
+// Create another person
+Person person2 = new Person("Alex", 22);
+person2.AddHobby("Gaming");
+person2.AddHobby("Coding");
+person2.AddHobby("Music");
+person2.Introduce();
+
+// 5. Error Handling Demo (simplified - no user input)
+Console.WriteLine("\n=== Error Handling Demo ===");
+try
+{
+    int number = 5;  // Use fixed number instead of user input
+    int result = 100 / number;
+    Console.WriteLine($"100 / {number} = {result}");
+    
+    // Demo division by zero
+    int zero = 0;
+    int errorResult = 100 / zero;
+}
+catch (DivideByZeroException)
+{
+    Console.WriteLine("Error: Cannot divide by zero!");
+}
+catch (FormatException)
+{
+    Console.WriteLine("Error: Invalid number format!");
+}
+
+// 6. LINQ (Language Integrated Query)
+Console.WriteLine("\n=== LINQ Demo ===");
+List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+var evenNumbers = numbers.Where(n => n % 2 == 0).ToList();
+var sum = numbers.Sum();
+var average = numbers.Average();
+
+Console.WriteLine($"Numbers: {string.Join(", ", numbers)}");
+Console.WriteLine($"Even numbers: {string.Join(", ", evenNumbers)}");
+Console.WriteLine($"Sum: {sum}, Average: {average:F1}");
+
+// 7. Conditional Logic
+Console.WriteLine("\n=== Conditional Logic ===");
+int score = 85;
+string grade = score switch
+{
+    >= 90 => "A",
+    >= 80 => "B",
+    >= 70 => "C",
+    >= 60 => "D",
+    _ => "F"
+};
+Console.WriteLine($"Score: {score}, Grade: {grade}");
+
+// 8. Loops
+Console.WriteLine("\n=== Loops Demo ===");
+Console.WriteLine("For loop:");
+for (int i = 1; i <= 5; i++)
+{
+    Console.WriteLine($"Count: {i}");
+}
+
+Console.WriteLine("\nForeach loop:");
+string[] fruits = { "Apple", "Banana", "Orange" };
+foreach (string fruit in fruits)
+{
+    Console.WriteLine($"Fruit: {fruit}");
+}
+
+// 9. List manipulation demo
+Console.WriteLine("\n=== List Methods Demo ===");
+List<string> colors = new List<string>();
+colors.Add("Red");      // Using the built-in Add method!
+colors.Add("Blue");
+colors.Add("Green");
+Console.WriteLine($"Colors: {string.Join(", ", colors)}");
+Console.WriteLine($"Count: {colors.Count}");
+Console.WriteLine($"Contains Red: {colors.Contains("Red")}");
+
+colors.Remove("Blue");  // Using built-in Remove method
+Console.WriteLine($"After removing Blue: {string.Join(", ", colors)}");
+
+Console.WriteLine("\n=== Program Complete ===");
+
+// ALL CLASS DEFINITIONS AND METHODS MUST COME LAST
+
+// Methods/Functions
+static int CalculateAge(DateTime birthDate)
+{
+    return DateTime.Now.Year - birthDate.Year;
+}
+
+static string GetPersonInfo(string personName, int personAge)
+{
+    return $"{personName} is {personAge} years old";
+}
+
+// Person Class Definition
+public class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public List<string> Hobbies { get; set; } = new List<string>();
+
+    public Person(string name, int age)
+    {
+        Name = name;
+        Age = age;
+    }
+
+    public void AddHobby(string hobby)
+    {
+        Hobbies.Add(hobby);  // Using the built-in Add method here!
+    }
+
+    public void Introduce()
+    {
+        Console.WriteLine($"Hi! I'm {Name}, {Age} years old.");
+        if (Hobbies.Count > 0)
+        {
+            Console.WriteLine($"My hobbies: {string.Join(", ", Hobbies)}");
+        }
+    }
+}

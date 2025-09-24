@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:11.2
+    container_name: mariadb-local
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: dotnetapp
+      MYSQL_USER: dotnetuser
+      MYSQL_PASSWORD: dotnetpassword
+      MARIADB_CHARSET: utf8mb4
+      MARIADB_COLLATION: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - dotnet-network
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  # Optional: phpMyAdmin for database management
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: phpmyadmin-local
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: dotnetuser
+      PMA_PASSWORD: dotnetpassword
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    networks:
+      - dotnet-network
+
+volumes:
+  mariadb_data:
+    driver: local
+
+networks:
+  dotnet-network:
+    driver: bridge
