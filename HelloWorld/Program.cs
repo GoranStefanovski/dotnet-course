@@ -68,8 +68,20 @@ namespace HelloWorld
             // Console.WriteLine(groceryItemPrices["Bread"]);
  
             // Operators and Conditionals
-            
+            int[] intsToCompress = new int[] {10, 15, 20, 25, 30, 35, 40, 45, 50};
+            var ourValue = GetSum(intsToCompress);
+            Console.WriteLine(ourValue + 1);
 
+        }
+
+        static private int GetSum(int[] intsToCompress)
+        {
+            int totalValue = 0;
+            foreach (int i in intsToCompress)
+            {
+                totalValue += i;
+            }
+            return totalValue;
         }
     }
 }

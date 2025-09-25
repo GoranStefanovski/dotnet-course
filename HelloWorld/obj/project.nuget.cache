@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yWWzH5ksJm4=",
+  "dgSpecHash": "AP9ZkEM8T/+6C4MSFWCmElaQ+Tjof8dNMHtPqaxl2q56iU9dcL27pd58lFqrFqH8Filyt8GCvbZ8o5xB0A+4lA==",
   "success": true,
-  "projectFilePath": "/home/esof/development/repositories/dotnet/HelloWorld/HelloWorld.csproj",
+  "projectFilePath": "/home/tevidma/development/repositories/dotnet-course/HelloWorld/HelloWorld.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

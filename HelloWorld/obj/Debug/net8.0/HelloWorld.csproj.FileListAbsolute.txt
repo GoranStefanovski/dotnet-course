@@ -1,0 +1,15 @@
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/bin/Debug/net8.0/HelloWorld
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/bin/Debug/net8.0/HelloWorld.deps.json
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/bin/Debug/net8.0/HelloWorld.runtimeconfig.json
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/bin/Debug/net8.0/HelloWorld.dll
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/bin/Debug/net8.0/HelloWorld.pdb
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.GeneratedMSBuildEditorConfig.editorconfig
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.AssemblyInfoInputs.cache
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.AssemblyInfo.cs
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.csproj.CoreCompileInputs.cache
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.sourcelink.json
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.dll
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/refint/HelloWorld.dll
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.pdb
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/HelloWorld.genruntimeconfig.cache
+/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/Debug/net8.0/ref/HelloWorld.dll

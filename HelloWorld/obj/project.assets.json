@@ -1,37 +1,36 @@
 {
   "version": 3,
   "targets": {
-    "net9.0": {}
+    "net8.0": {}
   },
   "libraries": {},
   "projectFileDependencyGroups": {
-    "net9.0": []
+    "net8.0": []
   },
   "packageFolders": {
-    "/home/esof/.nuget/packages/": {}
+    "/home/tevidma/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/esof/development/repositories/dotnet/HelloWorld/HelloWorld.csproj",
+      "projectUniqueName": "/home/tevidma/development/repositories/dotnet-course/HelloWorld/HelloWorld.csproj",
       "projectName": "HelloWorld",
-      "projectPath": "/home/esof/development/repositories/dotnet/HelloWorld/HelloWorld.csproj",
-      "packagesPath": "/home/esof/.nuget/packages/",
-      "outputPath": "/home/esof/development/repositories/dotnet/HelloWorld/obj/",
+      "projectPath": "/home/tevidma/development/repositories/dotnet-course/HelloWorld/HelloWorld.csproj",
+      "packagesPath": "/home/tevidma/.nuget/packages/",
+      "outputPath": "/home/tevidma/development/repositories/dotnet-course/HelloWorld/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/esof/.nuget/NuGet/NuGet.Config"
+        "/home/tevidma/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net9.0"
+        "net8.0"
       ],
       "sources": {
-        "/usr/lib/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "projectReferences": {}
         }
       },
@@ -39,17 +38,11 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+      }
     },
     "frameworks": {
-      "net9.0": {
-        "targetAlias": "net9.0",
+      "net8.0": {
+        "targetAlias": "net8.0",
         "imports": [
           "net461",
           "net462",
@@ -66,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.120/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
