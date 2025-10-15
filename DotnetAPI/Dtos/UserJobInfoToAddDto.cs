@@ -1,14 +1,11 @@
-namespace DotnetAPI.Models
+namespace DotnetAPI.Dtos
 {
-    public partial class UserJobInfo
+    public partial class UserJobInfoToAddDto
     {
-        public int UserId {get; set;}
-
         public string JobTitle { get; set; }
-
         public string Department { get; set; }
-
-        public UserJobInfo()
+        
+        public UserJobInfoToAddDto()
         {
             if (JobTitle == null)
             {

@@ -3,25 +3,25 @@
 
 USE dotnetapp;
 
--- Example table structure (modify as needed for your application)
+-- Users table matching the C# User model
 CREATE TABLE IF NOT EXISTS Users (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(50) NOT NULL UNIQUE,
+    UserId INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
-    PasswordHash VARCHAR(255) NOT NULL,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    IsActive BOOLEAN DEFAULT TRUE
+    Gender VARCHAR(10),
+    Active BOOLEAN DEFAULT TRUE
 );
 
--- Example data (optional)
-INSERT INTO Users (Username, Email, PasswordHash) VALUES 
-('admin', 'admin@example.com', 'hashed_password_here'),
-('testuser', 'test@example.com', 'hashed_password_here');
+-- Example data
+INSERT INTO Users (FirstName, LastName, Email, Gender, Active) VALUES 
+('John', 'Doe', 'john.doe@example.com', 'Male', TRUE),
+('Jane', 'Smith', 'jane.smith@example.com', 'Female', TRUE),
+('Bob', 'Johnson', 'bob.johnson@example.com', 'Male', FALSE),
+('Alice', 'Williams', 'alice.williams@example.com', 'Female', TRUE);
 
 -- Create indexes for better performance
 CREATE INDEX idx_users_email ON Users(Email);
-CREATE INDEX idx_users_username ON Users(Username);
 
 -- Grant additional permissions if needed
 GRANT ALL PRIVILEGES ON dotnetapp.* TO 'dotnetuser'@'%';
