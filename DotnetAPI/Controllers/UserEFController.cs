@@ -9,12 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class UserEFController : ControllerBase
 {
-    DataContextEF _entityFramework;
     IUserRepository _userRepository;
 
-    public UserEFController(IConfiguration config, IUserRepository userRepository)
+    public UserEFController(IUserRepository userRepository)
     {
-        _entityFramework = new DataContextEF(config);
         _userRepository = userRepository;
     }
 

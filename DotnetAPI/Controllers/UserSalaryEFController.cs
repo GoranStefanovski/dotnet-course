@@ -9,14 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 [Route("[controller]")]
 public class UserSalaryEFController : ControllerBase
 {
-    DataContextEF _entityFramework;
 
     IUserRepository _userRepository;
 
-    public UserSalaryEFController(IConfiguration config, IUserRepository userRepository)
+    public UserSalaryEFController(IUserRepository userRepository)
     {
-        _entityFramework = new DataContextEF(config);
-
         _userRepository = userRepository;
     }
 
