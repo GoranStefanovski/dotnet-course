@@ -21,22 +21,21 @@ public class UserJobInfoEFController : ControllerBase
    [HttpGet("GetAllUserJorInfo")]
     public IEnumerable<UserJobInfo> GetAllUserJorInfo()
     {
-        IEnumerable<UserJobInfo> userJobInfos = _entityFramework.UserJobInfo.ToList<UserJobInfo>();
+        IEnumerable<UserJobInfo> userJobInfos = _userRepository.GetUsersJobInfo();
         return userJobInfos;
     }
 
     [HttpGet("GetUserJobInfo/{userId}")]
     public UserJobInfo? GetUserJobInfo(int userId)
     {
-        UserJobInfo? UserJobInfo = _entityFramework.UserJobInfo.Find(userId);
-        return UserJobInfo;
+        return _userRepository.GetSingleUserJobInfo(userId);
     }
    
     [HttpPost("AddUserJobInfo/{userId}")]
     public IActionResult AddUserJobInfo(int userId, UserJobInfoToAddDto UserJobInfo)
     {
         // First check if the user exists
-        User? existingUser = _entityFramework.Users.Find(userId);
+        User? existingUser = _userRepository.GetSingleUser(userId);
         if (existingUser == null)
         {
             return NotFound($"User with ID {userId} not found");
@@ -50,15 +49,18 @@ public class UserJobInfoEFController : ControllerBase
             Department = UserJobInfo.Department
         };
 
-        _userRepository.AddEntity<UserJobInfo>(UserJobInfoToAdd);
-        _entityFramework.SaveChanges();
+        if (!_userRepository.AddEntity(UserJobInfoToAdd))
+        {
+            return BadRequest("Failed to add user");
+        }
+        
         return Ok();
     }
 
     [HttpPut("EditUserJobInfo")]
     public IActionResult EditUserJobInfo(UserJobInfoUpdateDto UserJobInfoUpdate)
     {
-      UserJobInfo? existingUserJobInfo = _entityFramework.UserJobInfo.Find(UserJobInfoUpdate.UserId);
+        UserJobInfo? existingUserJobInfo = _userRepository.GetSingleUserJobInfo(UserJobInfoUpdate.UserId);
         if (existingUserJobInfo == null)
         {
             return NotFound($"User with ID {UserJobInfoUpdate.UserId} not found");
@@ -70,19 +72,24 @@ public class UserJobInfoEFController : ControllerBase
         if (UserJobInfoUpdate.Department != null) 
             existingUserJobInfo.Department = UserJobInfoUpdate.Department;
        
+        if (!_userRepository.EditEntity(existingUserJobInfo))
+        {
+            return BadRequest("Failed to update user job info");
+        }
         
-        _entityFramework.SaveChanges();
         return Ok(existingUserJobInfo);
     }
 
     [HttpDelete("DeleteUserJobInfo/{userId}")]
     public IActionResult DeleteUserJobInfo(int userId)
     {
-        UserJobInfo UserJobInfoToDelete = _entityFramework.UserJobInfo.Find(userId);
+        UserJobInfo UserJobInfoToDelete = _userRepository.GetSingleUserJobInfo(userId);
         if (UserJobInfoToDelete != null)
         {
-            _userRepository.RemoveEntity<UserJobInfo>(UserJobInfoToDelete);
-            _entityFramework.SaveChanges();
+            if (!_userRepository.RemoveEntity(UserJobInfoToDelete))
+            {
+                return BadRequest("Failed to delete user");
+            }
             return Ok();
         }
         return NotFound($"User Info with UserId: {userId} not found");

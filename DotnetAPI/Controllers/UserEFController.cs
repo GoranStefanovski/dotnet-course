@@ -28,30 +28,33 @@ public class UserEFController : ControllerBase
     [HttpGet("GetSingleUser/{userId}")]
     public User? GetSingleUser(int userId)
     {
-        User? user = _entityFramework.Users.Find(userId);
-        return user;
+        return _userRepository.GetSingleUser(userId);
     }
 
     [HttpPost("AddUser")]
     public IActionResult AddUser(UserToAddDto user)
     {
-      User userToAdd = new User()
-      {
-        FirstName = user.FirstName,
-        LastName = user.LastName,
-        Email = user.Email,
-        Gender = user.Gender,
-        Active = user.Active
-      };
-      _userRepository.AddEntity<User>(userToAdd);
-      _entityFramework.SaveChanges();
-      return Ok();
+        User userToAdd = new User()
+        {
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Gender = user.Gender,
+            Active = user.Active
+        };
+
+        if (!_userRepository.AddEntity(userToAdd))
+        {
+            return BadRequest("Failed to add user");
+        }
+        
+        return Ok();
     }
 
     [HttpPut("EditUser")]
     public IActionResult EditUser(UserUpdateDto userUpdate)
     {
-        User? existingUser = _entityFramework.Users.Find(userUpdate.UserId);
+        User? existingUser = _userRepository.GetSingleUser(userUpdate.UserId);
         if (existingUser == null)
         {
             return NotFound($"User with ID {userUpdate.UserId} not found");
@@ -69,18 +72,24 @@ public class UserEFController : ControllerBase
         if (userUpdate.Active.HasValue) 
             existingUser.Active = userUpdate.Active.Value;
         
-        _entityFramework.SaveChanges();
+        if (!_userRepository.EditEntity(existingUser))
+        {
+            return BadRequest("Failed to update user");
+        }
+        
         return Ok(existingUser);
     }
 
     [HttpDelete("DeleteUser/{userId}")]
     public IActionResult DeleteUser(int userId)
     {
-        User userToDelete = _entityFramework.Users.Find(userId);
+        User userToDelete = _userRepository.GetSingleUser(userId);
         if (userToDelete != null)
         {
-            _userRepository.RemoveEntity<User>(userToDelete);
-            _entityFramework.SaveChanges();
+            if (!_userRepository.RemoveEntity(userToDelete))
+            {
+                return BadRequest("Failed to delete user");
+            }
             return Ok();
         }
         return NotFound($"User with ID {userId} not found");
