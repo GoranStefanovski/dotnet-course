@@ -10,17 +10,19 @@ using Microsoft.AspNetCore.Mvc;
 public class UserEFController : ControllerBase
 {
     DataContextEF _entityFramework;
+    IUserRepository _userRepository;
 
-    public UserEFController(IConfiguration config)
+    public UserEFController(IConfiguration config, IUserRepository userRepository)
     {
         _entityFramework = new DataContextEF(config);
+        _userRepository = userRepository;
     }
 
     [HttpGet("GetUsers")]
     public IEnumerable<User> GetUsers()
     {
-       IEnumerable<User> users = _entityFramework.Users.ToList<User>();
-       return users;
+        IEnumerable<User> users = _userRepository.GetUsers();
+        return users;
     }
 
     [HttpGet("GetSingleUser/{userId}")]
@@ -41,7 +43,7 @@ public class UserEFController : ControllerBase
         Gender = user.Gender,
         Active = user.Active
       };
-      _entityFramework.Users.Add(userToAdd);
+      _userRepository.AddEntity<User>(userToAdd);
       _entityFramework.SaveChanges();
       return Ok();
     }
@@ -77,7 +79,7 @@ public class UserEFController : ControllerBase
         User userToDelete = _entityFramework.Users.Find(userId);
         if (userToDelete != null)
         {
-            _entityFramework.Users.Remove(userToDelete);
+            _userRepository.RemoveEntity<User>(userToDelete);
             _entityFramework.SaveChanges();
             return Ok();
         }

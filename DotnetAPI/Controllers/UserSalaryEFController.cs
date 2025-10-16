@@ -11,9 +11,13 @@ public class UserSalaryEFController : ControllerBase
 {
     DataContextEF _entityFramework;
 
-    public UserSalaryEFController(IConfiguration config)
+    IUserRepository _userRepository;
+
+    public UserSalaryEFController(IConfiguration config, IUserRepository userRepository)
     {
         _entityFramework = new DataContextEF(config);
+
+        _userRepository = userRepository;
     }
 
    [HttpGet("GetAllUserSalary")]
@@ -47,8 +51,8 @@ public class UserSalaryEFController : ControllerBase
             Salary = userSalary.Salary,      // Convert int to decimal
             AvgSalary = userSalary.AvgSalary // Convert int to decimal
         };
-        
-        _entityFramework.UserSalary.Add(userSalaryToAdd);
+
+        _userRepository.AddEntity<UserSalary>(userSalaryToAdd);
         _entityFramework.SaveChanges();
         return Ok();
     }
@@ -79,7 +83,7 @@ public class UserSalaryEFController : ControllerBase
         UserSalary userSalaryToDelete = _entityFramework.UserSalary.Find(userId);
         if (userSalaryToDelete != null)
         {
-            _entityFramework.UserSalary.Remove(userSalaryToDelete);
+            _userRepository.RemoveEntity<UserSalary>(userSalaryToDelete);
             _entityFramework.SaveChanges();
             return Ok();
         }

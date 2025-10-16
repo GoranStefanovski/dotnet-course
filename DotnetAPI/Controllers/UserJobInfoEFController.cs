@@ -10,10 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 public class UserJobInfoEFController : ControllerBase
 {
     DataContextEF _entityFramework;
+    IUserRepository _userRepository;
 
-    public UserJobInfoEFController(IConfiguration config)
+    public UserJobInfoEFController(IConfiguration config, IUserRepository userRepository)
     {
         _entityFramework = new DataContextEF(config);
+        _userRepository = userRepository;
     }
 
    [HttpGet("GetAllUserJorInfo")]
@@ -47,8 +49,8 @@ public class UserJobInfoEFController : ControllerBase
             JobTitle = UserJobInfo.JobTitle,
             Department = UserJobInfo.Department
         };
-        
-        _entityFramework.UserJobInfo.Add(UserJobInfoToAdd);
+
+        _userRepository.AddEntity<UserJobInfo>(UserJobInfoToAdd);
         _entityFramework.SaveChanges();
         return Ok();
     }
@@ -79,7 +81,7 @@ public class UserJobInfoEFController : ControllerBase
         UserJobInfo UserJobInfoToDelete = _entityFramework.UserJobInfo.Find(userId);
         if (UserJobInfoToDelete != null)
         {
-            _entityFramework.UserJobInfo.Remove(UserJobInfoToDelete);
+            _userRepository.RemoveEntity<UserJobInfo>(UserJobInfoToDelete);
             _entityFramework.SaveChanges();
             return Ok();
         }
